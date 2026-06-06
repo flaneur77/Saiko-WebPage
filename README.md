@@ -1,4 +1,4 @@
-# Saiko.lol-HomePage <img src="favicon4.gif" width="20" height="20" alt="emoji">
+# Saiko.lol HomePage  <img src="favicon4.gif" width="24" height="24" alt="emoji">
 Saiko.lol Home Page Code and Resources
 
 # Preview 
