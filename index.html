@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="/favicon4.gif" type="image/x-icon">
+    <title>Saiko!!!</title>
+</head>
+<body>
+<div>
+    <h1 class="head">SAIKO SITE</h1>
+    <p class="jp">サイトはまだできてないよ......</p>
+    <p class="eng">The site's not ready yet~ Please wait a little longer!</p>
+</div> 
+<img src="/resources/make.png" alt="Sitting Anime Girl" class="corner-sitting-girl">
+
+<div id="overlay" class="overlay">
+  <div class="modal">
+<h2 style="display: inline-flex; align-items: center; gap: 8px;">
+  <img style="height: 1em;" src="/favicon4.gif" alt="">
+  <span>Warning!</span>
+</h2>
+    <p class="message">
+    This site is heavily affiliated with cats; a user must be a cat lover to enter this site.<br>
+    </p>
+    <div class="options">
+      <button id="enterBtn" class="btn yes">ENTER</button>
+      <button id="leaveBtn" class="btn no">ENTER ANYWAY</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const overlay = document.getElementById("overlay");
+
+document.getElementById("enterBtn").addEventListener("click", () => {
+  overlay.style.display = "none";
+});
+
+document.getElementById("leaveBtn").addEventListener("click", () => {
+  overlay.style.display = "none";
+});
+</script>
+
+<div class="counter-section">
+    <span class="counter-label"></span>
+    <div class="counter-img-wrap loading" id="counter-wrap">
+      <img id="moe-counter" alt="visitor counter" />
+    </div>
+  </div>
+ 
+  <script>
+    (async () => {
+      const img   = document.getElementById('moe-counter');
+      const wrap  = document.getElementById('counter-wrap');
+ 
+    
+      const COUNT_URL = 'https://countapi.mileshilliard.com/api/v1/hit/saikosite-visits';
+ 
+      try {
+        const res = await fetch(COUNT_URL);
+        if (!res.ok) throw new Error('CountAPI error');
+        const { value } = await res.json();
+        // note: value comes back as a string, Number() converts it
+ 
+        // ─── STEP 2: build the moe counter image ───────────────────────
+        const moeSrc = `https://api.sefinek.net/api/v2/moecounter`
+          + `?number=${Number(value)}`
+          + `&length=7`
+          + `&theme=default`      // try: default2 ig 
+          + `&pixelated=true`;
+ 
+        img.onload = () => {
+          wrap.classList.remove('loading');
+          img.classList.add('loaded');
+        };
+        img.src = moeSrc;
+ 
+      } catch (err) {
+        // graceful fallback — shows a zero counter if the API is unreachable!!
+        console.warn('Visitor count unavailable:', err);
+        wrap.classList.remove('loading');
+        img.src = `https://api.sefinek.net/api/v2/moecounter?number=0&length=10&theme=default&pixelated=true`;
+        img.classList.add('loaded');
+      }
+    })();
+  </script>
+
+
+
+
+</body>
+</html>
